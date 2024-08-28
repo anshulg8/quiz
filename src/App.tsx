@@ -1,34 +1,83 @@
-import { useState } from 'react'
-import { Button, Show } from '@chakra-ui/react'
-import { Grid, GridItem } from '@chakra-ui/react'
-import NavBar from './components/NavBar'
+import { useState } from 'react';
+import { Box } from '@chakra-ui/react';
+import MovieSelection from './components/MovieSelection';
+import MovieQuiz from './components/MovieQuiz';
+import { Movie } from './data';
+import DarkModeToggle from './components/DarkModeToggle';
 
-function App() {
-  const [count, setCount] = useState(0)
-  return (
-    <>
-      <div className="card">
-        <Button colorScheme='blue' onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </Button>
-      </div>
-
-      <Grid templateAreas={{
-        base: `"nav" "main"`,
-        lg: `"nav nav" "aside main"`
-      }}>
-        <GridItem area='nav' bg=''>
-          <NavBar />
-        </GridItem>
-        <Show above='lg'>
-          <GridItem area='aside' bg='gold'>Aside</GridItem>
-        </Show>
-
-        <GridItem area='main' bg='dodgerblue'>Main</GridItem>
-      </Grid>
-
-    </>
-  )
+interface Question {
+  question: string;
+  options: string[];
+  answer: string;
+  image?: string;
 }
 
-export default App
+const quizData: Record<string, Question[]> = {
+  "Breaking Bad": [
+    {
+      question: "What is Walter White's alias?",
+      options: ["Heisenberg", "Gus", "Saul", "Hank"],
+      answer: "Heisenberg",
+      image: "https://ntvb.tmsimg.com/assets/p8696131_b_h10_aa.jpg", // Example image
+    },
+    {
+      question: "Who was Walter White’s first partner in the meth business?",
+      options: ["Jesse Pinkman", "Gus Fring", "Mike Ehrmantraut", "Tuco Salamanca"],
+      answer: "Jesse Pinkman",
+    },
+  ],
+  "Stranger Things": [
+    {
+      question: "What is the name of the parallel dimension in Stranger Things?",
+      options: ["The Other Side", "The Reverse", "The Upside Down", "The Dark Side"],
+      answer: "The Upside Down",
+    },
+  ],
+  "Game of Thrones": [
+    {
+      question: "Who sits on the Iron Throne at the end of Game of Thrones?",
+      options: ["Daenerys Targaryen", "Jon Snow", "Bran Stark", "Tyrion Lannister"],
+      answer: "Bran Stark",
+    },
+  ],
+  "The Dark Knight": [
+    {
+      question: "Who plays the Joker in The Dark Knight?",
+      options: ["Jared Leto", "Jack Nicholson", "Joaquin Phoenix", "Heath Ledger"],
+      answer: "Heath Ledger",
+    },
+  ],
+};
+
+function App() {
+  const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
+  const [selectedAnswer, setSelectedAnswer] = useState<string>("");
+
+  const handleMovieSelect = (movie: Movie) => {
+    setSelectedMovie(movie);
+  };
+
+  const handleRestart = () => {
+    setSelectedMovie(null);
+    setSelectedAnswer("");
+  };
+
+  return (
+    <Box maxW="800px" mx="auto" mt="50px" p="6" borderWidth="1px" borderRadius="lg">
+      <DarkModeToggle />
+      {!selectedMovie ? (
+        <MovieSelection onSelect={handleMovieSelect} />
+      ) : (
+        <MovieQuiz
+          movie={selectedMovie}
+          questions={quizData[selectedMovie.title]}
+          selectedAnswer={selectedAnswer}
+          onAnswer={setSelectedAnswer}
+          onRestart={handleRestart}
+        />
+      )}
+    </Box>
+  );
+}
+
+export default App;
