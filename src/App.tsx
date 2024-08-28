@@ -4,8 +4,17 @@ import MovieSelection from './components/MovieSelection';
 import MovieQuiz from './components/MovieQuiz';
 import { Movie } from './data';
 import DarkModeToggle from './components/DarkModeToggle';
+import { bbData } from './data/bb';
+import { gotData } from './data/got';
+import { himymData } from './data/himym';
+import { friendsData } from './data/friends';
+import { tbbtData } from './data/tbbt';
+import { pnrData } from './data/pnr';
+import { seinfeldData } from './data/seinfeld';
+import { officeData } from './data/office';
+import { rnmData } from './data/rnm';
 
-interface Question {
+export interface Question {
   question: string;
   options: string[];
   answer: string;
@@ -13,40 +22,15 @@ interface Question {
 }
 
 const quizData: Record<string, Question[]> = {
-  "Breaking Bad": [
-    {
-      question: "What is Walter White's alias?",
-      options: ["Heisenberg", "Gus", "Saul", "Hank"],
-      answer: "Heisenberg",
-      image: "https://ntvb.tmsimg.com/assets/p8696131_b_h10_aa.jpg", // Example image
-    },
-    {
-      question: "Who was Walter White’s first partner in the meth business?",
-      options: ["Jesse Pinkman", "Gus Fring", "Mike Ehrmantraut", "Tuco Salamanca"],
-      answer: "Jesse Pinkman",
-    },
-  ],
-  "Stranger Things": [
-    {
-      question: "What is the name of the parallel dimension in Stranger Things?",
-      options: ["The Other Side", "The Reverse", "The Upside Down", "The Dark Side"],
-      answer: "The Upside Down",
-    },
-  ],
-  "Game of Thrones": [
-    {
-      question: "Who sits on the Iron Throne at the end of Game of Thrones?",
-      options: ["Daenerys Targaryen", "Jon Snow", "Bran Stark", "Tyrion Lannister"],
-      answer: "Bran Stark",
-    },
-  ],
-  "The Dark Knight": [
-    {
-      question: "Who plays the Joker in The Dark Knight?",
-      options: ["Jared Leto", "Jack Nicholson", "Joaquin Phoenix", "Heath Ledger"],
-      answer: "Heath Ledger",
-    },
-  ],
+  "Breaking Bad": bbData,
+  "Game of Thrones": gotData,
+  "How I Met Your Mother": himymData,
+  "Friends": friendsData,
+  "The Big Bang Theory": tbbtData,
+  "Parks & Recreation": pnrData,
+  "Seinfeld": seinfeldData,
+  "The Office": officeData,
+  "Rick & Morty": rnmData,
 };
 
 function App() {
@@ -58,6 +42,11 @@ function App() {
   };
 
   const handleRestart = () => {
+    setSelectedMovie(null);
+    setSelectedAnswer("");
+  };
+
+  const handleBack = () => {
     setSelectedMovie(null);
     setSelectedAnswer("");
   };
@@ -74,6 +63,7 @@ function App() {
           selectedAnswer={selectedAnswer}
           onAnswer={setSelectedAnswer}
           onRestart={handleRestart}
+          onBack={handleBack}
         />
       )}
     </Box>

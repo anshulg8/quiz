@@ -1,5 +1,19 @@
 import React, { useState } from 'react';
-import { Box, Heading, Radio, RadioGroup, Stack, Button, Text, Flex, CircularProgress, CircularProgressLabel, Image } from '@chakra-ui/react';
+import {
+    Box,
+    Heading,
+    Radio,
+    RadioGroup,
+    Stack,
+    Button,
+    Text,
+    Flex,
+    CircularProgress,
+    CircularProgressLabel,
+    Image,
+    Alert,
+    AlertIcon,
+} from '@chakra-ui/react';
 import { FaTwitter, FaFacebook, FaWhatsapp } from 'react-icons/fa';
 import { Movie } from '../data';
 
@@ -7,7 +21,7 @@ interface Question {
     question: string;
     options: string[];
     answer: string;
-    image?: string; // Optional image field
+    image?: string;
 }
 
 interface MovieQuizProps {
@@ -16,6 +30,7 @@ interface MovieQuizProps {
     selectedAnswer: string;
     onAnswer: (value: string) => void;
     onRestart: () => void;
+    onBack: () => void;
 }
 
 const MovieQuiz: React.FC<MovieQuizProps> = ({
@@ -24,23 +39,35 @@ const MovieQuiz: React.FC<MovieQuizProps> = ({
     selectedAnswer,
     onAnswer,
     onRestart,
+    onBack,
 }) => {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
     const [score, setScore] = useState<number>(0);
     const [showScore, setShowScore] = useState<boolean>(false);
+    const [showAlert, setShowAlert] = useState<boolean>(false); // State to show alert
+    const [isCorrect, setIsCorrect] = useState<boolean | null>(null); // State to track correctness
 
     const handleNextQuestion = () => {
         if (selectedAnswer === questions[currentQuestionIndex].answer) {
             setScore(score + 1);
+            setIsCorrect(true);
+        } else {
+            setIsCorrect(false);
         }
 
-        const nextIndex = currentQuestionIndex + 1;
-        if (nextIndex < questions.length) {
-            setCurrentQuestionIndex(nextIndex);
-            onAnswer(""); // Reset answer selection for the next question
-        } else {
-            setShowScore(true);
-        }
+        setShowAlert(true);
+
+        // Hide the alert after 2 seconds and move to the next question
+        setTimeout(() => {
+            setShowAlert(false);
+            const nextIndex = currentQuestionIndex + 1;
+            if (nextIndex < questions.length) {
+                setCurrentQuestionIndex(nextIndex);
+                onAnswer(""); // Reset answer selection for the next question
+            } else {
+                setShowScore(true);
+            }
+        }, 1000);
     };
 
     const shareMessage = `I scored ${score} out of ${questions.length} on the ${movie.title} quiz! Try it out!`;
@@ -112,6 +139,12 @@ const MovieQuiz: React.FC<MovieQuizProps> = ({
                     <Text fontSize="lg" mb="4">
                         {questions[currentQuestionIndex].question}
                     </Text>
+                    {showAlert && (
+                        <Alert status={isCorrect ? "success" : "error"} mb="4">
+                            <AlertIcon />
+                            {isCorrect ? "Correct!" : "Incorrect!"}
+                        </Alert>
+                    )}
                     <RadioGroup onChange={onAnswer} value={selectedAnswer}>
                         <Stack direction="column">
                             {questions[currentQuestionIndex].options.map((option, index) => (
@@ -121,14 +154,14 @@ const MovieQuiz: React.FC<MovieQuizProps> = ({
                             ))}
                         </Stack>
                     </RadioGroup>
-                    <Button
-                        mt="4"
-                        colorScheme="teal"
-                        onClick={handleNextQuestion}
-                        isDisabled={!selectedAnswer}
-                    >
-                        {currentQuestionIndex < questions.length - 1 ? "Next" : "Submit"}
-                    </Button>
+                    <Flex justifyContent="space-between" mt="4">
+                        <Button colorScheme="gray" onClick={onBack}>
+                            Back
+                        </Button>
+                        <Button colorScheme="teal" onClick={handleNextQuestion} isDisabled={!selectedAnswer}>
+                            {currentQuestionIndex < questions.length - 1 ? "Next" : "Submit"}
+                        </Button>
+                    </Flex>
                 </>
             )}
         </Box>
