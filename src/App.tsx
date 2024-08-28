@@ -22,6 +22,7 @@ import { vincenzoData } from './data/vincenzo';
 import { crashLandingData } from './data/crashLanding';
 import { squidData } from './data/squid';
 import { businessPropData } from './data/businessProp';
+import Footer from './components/Footer';
 
 export interface Question {
   question: string;
@@ -84,6 +85,7 @@ function App() {
           onBack={handleBack}
         />
       )}
+      <Footer />
     </Box>
   );
 }

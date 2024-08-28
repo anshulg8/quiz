@@ -17,7 +17,7 @@ const MovieSelection: React.FC<MovieSelectionProps> = ({ onSelect }) => {
     return (
         <Box>
             <Heading as="h2" size="md" mb="6" textAlign="center">
-                Select Your Favorite TV Show/Movie
+                Select Your Favorite TV Show
             </Heading>
             <Input
                 placeholder="Search for a TV show or movie..."
