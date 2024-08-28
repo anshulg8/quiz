@@ -13,6 +13,15 @@ import { pnrData } from './data/pnr';
 import { seinfeldData } from './data/seinfeld';
 import { officeData } from './data/office';
 import { rnmData } from './data/rnm';
+import { dotsData } from './data/dotsData';
+import { alchemyData } from './data/alchemy';
+import { kingLandData } from './data/kingLand';
+import { goblinData } from './data/goblin';
+import { oknotokData } from './data/oknotok';
+import { vincenzoData } from './data/vincenzo';
+import { crashLandingData } from './data/crashLanding';
+import { squidData } from './data/squid';
+import { businessPropData } from './data/businessProp';
 
 export interface Question {
   question: string;
@@ -31,6 +40,15 @@ const quizData: Record<string, Question[]> = {
   "Seinfeld": seinfeldData,
   "The Office": officeData,
   "Rick & Morty": rnmData,
+  "Descendants of the Sun": dotsData,
+  "Alchemy of Souls": alchemyData,
+  "King the Land": kingLandData,
+  "Squid Game": squidData,
+  "Business Proposal": businessPropData,
+  "Goblin": goblinData,
+  "It's Okay to Not Be Okay": oknotokData,
+  "Vincenzo": vincenzoData,
+  "CrashLanding": crashLandingData,
 };
 
 function App() {

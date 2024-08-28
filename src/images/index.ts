@@ -9,6 +9,14 @@ import pnr from './pnr.jpg'
 import rickmorty from './rickmorty.jpg'
 import seinfeld from './seinfeld.jpg'
 import theoffice from './theoffice.jpg'
+import dots from './dots.jpg'
+import alchemy from './alchemy.jpg'
+import kingtheland from './kingtheland.jpg'
+import squid from './squid.jpg'
+import goblin from './goblin.jpg'
+import oknotok from './oknotok.jpg'
+import vincenzo from './vincenzo.jpg'
+import businessproposal from './businessproposal.jpg'
 
 const images = {
     "bb": bb,
@@ -22,6 +30,14 @@ const images = {
     "rickmorty": rickmorty,
     "seinfeld": seinfeld,
     "theoffice": theoffice,
+    "dots": dots,
+    "alchemy": alchemy,
+    "kingtheland": kingtheland,
+    "squid": squid,
+    "goblin": goblin,
+    "oknotok": oknotok,
+    "vincenzo": vincenzo,
+    "businessproposal": businessproposal,
 };
 
 export default images;

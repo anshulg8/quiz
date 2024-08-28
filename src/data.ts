@@ -52,4 +52,44 @@ export const tvShowsAndMovies: Movie[] = [
         title: "The Office",
         imageUrl: images["theoffice"],
     },
+    {
+        id: 10,
+        title: "Descendants of the Sun",
+        imageUrl: images["dots"],
+    },
+    {
+        id: 11,
+        title: "Alchemy of Souls",
+        imageUrl: images["alchemy"],
+    },
+    {
+        id: 12,
+        title: "King the Land",
+        imageUrl: images["kingtheland"],
+    },
+    {
+        id: 13,
+        title: "Squid Game",
+        imageUrl: images["squid"],
+    },
+    {
+        id: 14,
+        title: "Business Proposal",
+        imageUrl: images["businessproposal"],
+    },
+    {
+        id: 15,
+        title: "Goblin",
+        imageUrl: images["goblin"],
+    },
+    {
+        id: 16,
+        title: "It's Okay to Not Be Okay",
+        imageUrl: images["oknotok"],
+    },
+    {
+        id: 17,
+        title: "Vincenzo",
+        imageUrl: images["vincenzo"],
+    },
 ];
